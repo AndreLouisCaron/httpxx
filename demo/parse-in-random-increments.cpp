@@ -5,8 +5,6 @@
 // (see "LICENSE.txt"). If not, terms of the license are available online at
 // "http://www.opensource.org/licenses/mit".
 
-#include "http_parser.h"
-
 #include "Error.hpp"
 #include "Flags.hpp"
 #include "Method.hpp"
