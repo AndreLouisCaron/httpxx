@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C++ Express 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "demo", "demo.vcproj", "{616EAAA0-6596-4138-BD65-C4B5AB1E93E9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{907EAB92-5272-4A67-8B9C-AA86789D9795} = {907EAB92-5272-4A67-8B9C-AA86789D9795}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "http", "http.vcproj", "{907EAB92-5272-4A67-8B9C-AA86789D9795}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{616EAAA0-6596-4138-BD65-C4B5AB1E93E9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{616EAAA0-6596-4138-BD65-C4B5AB1E93E9}.Debug|Win32.Build.0 = Debug|Win32
+		{616EAAA0-6596-4138-BD65-C4B5AB1E93E9}.Release|Win32.ActiveCfg = Release|Win32
+		{616EAAA0-6596-4138-BD65-C4B5AB1E93E9}.Release|Win32.Build.0 = Release|Win32
+		{907EAB92-5272-4A67-8B9C-AA86789D9795}.Debug|Win32.ActiveCfg = Debug|Win32
+		{907EAB92-5272-4A67-8B9C-AA86789D9795}.Debug|Win32.Build.0 = Debug|Win32
+		{907EAB92-5272-4A67-8B9C-AA86789D9795}.Release|Win32.ActiveCfg = Release|Win32
+		{907EAB92-5272-4A67-8B9C-AA86789D9795}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
