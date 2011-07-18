@@ -11,16 +11,17 @@
 Description
 ===========
 
-This library is a simple C++ wrapper for the C library ``http-parser``_ [#]_.
-``http-parser`` is a simple HTTP streaming parser (for those of you familiar
-with XML, it works much like a SAX parser).  It knows nothing of sockets or
-streams.  You feed it data and it invokes registered callbacks to notify of
-available data.  Because ``http-parser`` operates at the very lowest level, it
-does not buffer data or allocate memory dynamically.  This library attempts to
-make that library easily usable by C++ programs by interpreting those callbacks
-and buffering data where needed.
+This library is a simple C++ wrapper for the C library ``http-parser`` [#]_
+(This code was derived from the HTTP parser code in NGINX_).  ``http-parser`` is
+a simple HTTP streaming parser (for those of you familiar with XML, it works
+much like a SAX parser).  It knows nothing of sockets or streams.  You feed it
+data and it invokes registered callbacks to notify of available data.  Because
+``http-parser`` operates at the very lowest level, it does not buffer data or
+allocate memory dynamically.  This library attempts to make that library easily
+usable by C++ programs by interpreting those callbacks and buffering data where
+needed.
 
-.. [#] This code was derived from the HTTP parser code in NGINX_.
+.. [#] https://github.com/ry/http-parser.
 
 .. _NGINX: http://nginx.net/
 
