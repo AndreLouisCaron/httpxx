@@ -12,6 +12,14 @@
 
 namespace http {
 
+        /*!
+         * @brief Extra information about the request or response.
+         *
+         * Flags mainly help with connection/socket management.  In particular,
+         * you can determine whether to keep the connection open for keep alive
+         * or if you should use switch to an alternate protocol handler
+         * (WebSockets, for instance).
+         */
     class Flags
     {
         /* nested types. */
@@ -24,53 +32,66 @@ namespace http {
 
         /* class methods. */
     public:
-        static const Flags of ( const ::http_parser& parser )
-        {
-            return (static_cast< ::flags >(parser.flags));
-        }
+            /*!
+             * @brief Extract the flags set in @a parser.
+             */
+        static const Flags of ( const ::http_parser& parser );
 
-        static const Flags chunked ()
-        {
-            return (F_CHUNKED);
-        }
+            /*!
+             * @brief Check if the message body is in chuncked format.
+             */
+        static const Flags chunked ();
 
-        static const Flags keepalive ()
-        {
-            return (F_CONNECTION_KEEP_ALIVE);
-        }
+            /*!
+             * @brief Check if the client requested keep-alive.
+             *
+             * @note Handling keep alive is only requested by the client, it is
+             *  in no fashion required to accept this.  Many servers disable
+             *  keep alive for performance reasons when their are hordes of
+             *  requests coming mostly from different clients.
+             *
+             * @see close()
+             */
+        static const Flags keepalive ();
 
-        static const Flags close ()
-        {
-            return (F_CONNECTION_CLOSE);
-        }
+            /*!
+             * @brief Check if a new connection should be established for the
+             *  next request.
+             *
+             * @see keepalive()
+             */
+        static const Flags close ();
 
-        static const Flags trailing ()
-        {
-            return (F_TRAILING);
-        }
+        static const Flags trailing ();
 
-        static const Flags upgrade ()
-        {
-            return (F_UPGRADE);
-        }
+            /*!
+             * @brief Check if the client requested a protocol upgrade.
+             *
+             * Newer HTTP versions support derived protocol (such as WebSockets)
+             * to re-use port 80 for additional connections.  When an upgrade is
+             * requested, the parser stops accepting data as soon as the headers
+             * end.  Whatever data is received next should be interpreted by a
+             * specialized protocol handler.
+             *
+             * In particular, check the "Upgrade" header to determine what
+             * protocol was requested.
+             */
+        static const Flags upgrade ();
 
-        static const Flags skipbody ()
-        {
-            return (F_SKIPBODY);
-        }
+        static const Flags skipbody ();
 
         /* construction. */
     private:
-        Flags ( Value value )
-            : myValue(value)
-        {}
+            // Use prototype instances.
+        Flags ( Value value );
 
         /* operators. */
     public:
-        bool operator& ( const Flags& rhs ) const
-        {
-            return ((myValue & rhs.myValue) != 0);
-        }
+            /*!
+             * @brief Check for signaled flags.
+             * @return @c true if all flags in @a rhs are signaled.
+             */
+        bool operator& ( const Flags& rhs ) const;
     };
 
 }

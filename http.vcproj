@@ -188,6 +188,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\code\Flags.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\code\Flags.hpp"
 				>
 			</File>
