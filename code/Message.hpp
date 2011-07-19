@@ -19,6 +19,10 @@ namespace http {
 
         /*!
          * @brief Common denominator of @c Request and @c Response classes.
+         *
+         * This classes is an implementation detail and should not be
+         * instantiated directly.  You should use its services through instances
+         * of the the @c Request and @c Response classes instead.
          */
     class Message
     {
@@ -108,10 +112,22 @@ namespace http {
             */
         bool headerscomplete () const;
 
+            /*!
+             * @brief Obtain the HTTP version used by the remote peer.
+             * @return A numeric error code (should be 1 for now).
+             */
         int majorversion () const;
 
+            /*!
+             * @brief Obtain the HTTP revision used by the remote peer.
+             * @return A numeric error code (should be 0 or 1 for now).
+             */
         int minorversion () const;
 
+            /*!
+             * @brief Obtain parser flags.
+             * @return Flags documenting the parsed request/response object.
+             */
         const Flags flags () const;
 
             /*!

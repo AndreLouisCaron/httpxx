@@ -16,7 +16,47 @@
 namespace http {
 
         /*!
-         * @brief Parser for HTTP request.
+         * @brief Parser for HTTP requests.
+         *
+         * @c Request objects are typically used on the "server" side of the
+         * HTTP connection.  After you've accepted a connection from a client,
+         * feed incoming data to an object of this class.
+         *
+         * @note This class is a request @e parser.  It cannot be used to format
+         *  outgoing requests.
+         *
+         * For high performance applications, you'll probably need to watch out
+         * for memory usage.  Request objects may be used to parse additional
+         * HTTP requests by using the @c clear() method.  This ensures that
+         * allocate buffers are re-used instead of dumped.  Reusing request
+         * objects will likely leed to faster parsing and reduced memory
+         * fragmentation in long running processes.
+         *
+         * @code
+         *  http::Request request;
+         *  // parse request.
+         *  while (!request.complete()) {
+         *    const int transferred = ::recv(socket, data, size, 0);
+         *    if (transferred == 0) {
+         *      break;
+         *    }
+         *    request.feed(data, transferred);
+         *  }
+         *  if (!request.complete()) {
+         *    // ...
+         *  }
+         *  // process request.
+         *  const std::string& host = request.header("Host");
+         *  if (host == "www.example.com") {
+         *    // ...
+         *  }
+         *  // signal end of transfer.
+         *  if (!(request.flags()&Flags::keepalive())) {
+         *    ::shutdown(socket, SD_BOTH);
+         *  }
+         *  // prepare to process another request.
+         *  request.clear();
+         * @endcode
          */
     class Request :
          public Message
@@ -45,7 +85,7 @@ namespace http {
         /* construction. */
     public:
             /*!
-             * @brief Build a fresh, independant HTTP parser.
+             * @brief Build a fresh, independant HTTP request parser.
              */
         Request ();
 
@@ -56,6 +96,14 @@ namespace http {
              */
         void clear ();
 
+            /*!
+             * @brief Obtain the HTTP method used by the client for the request.
+             * @return One of a few enumeration values.
+             *
+             * @note There are a variety of methods other than GET and POST.
+             *  Make sure to validate that this corresponds to one of the HTTP
+             *  methods you plan to support.
+             */
         const Method method () const;
 
             /*!
