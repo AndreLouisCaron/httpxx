@@ -25,6 +25,21 @@ needed.
 
 .. _NGINX: http://nginx.net/
 
+Fetching the code
+=================
+
+This project does not distribute the code to ``http-parser`` directly.  To fetch
+the entire source code, make sure you fetch submodules [#]_ too:
+
+::
+
+   $ git clone ...
+   $ cd httpxx
+   $ git submodule init
+   $ git submodule update
+
+.. [#] http://kernel.org/pub/software/scm/git/docs/git-submodule.html
+
 Portability
 ===========
 
