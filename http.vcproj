@@ -224,6 +224,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\code\Method.cpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

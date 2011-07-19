@@ -23,40 +23,37 @@ namespace http {
 
         /* class methods. */
     public:
-        static const Method of ( const ::http_parser& parser )
-        {
-            return (static_cast< ::http_method >(parser.method));
-        }
+        static const Method of ( const ::http_parser& parser );
 
-        static const Method del () { return (HTTP_DELETE); }
-        static const Method get () { return (HTTP_GET); }
-        static const Method head () { return (HTTP_HEAD); }
-        static const Method post () { return (HTTP_POST); }
-        static const Method put  () { return (HTTP_PUT); }
+        static const Method del ();
+        static const Method get ();
+        static const Method head ();
+        static const Method post ();
+        static const Method put  ();
 
-        static const Method connect () { return (HTTP_CONNECT); }
-        static const Method options () { return (HTTP_OPTIONS); }
-        static const Method trace () { return (HTTP_TRACE); }
+        static const Method connect ();
+        static const Method options ();
+        static const Method trace ();
 
-        static const Method copy () { return (HTTP_COPY); }
-        static const Method lock () { return (HTTP_LOCK); }
-        static const Method mkcol () { return (HTTP_MKCOL); }
-        static const Method move () { return (HTTP_MOVE); }
-        static const Method propfind () { return (HTTP_PROPFIND); }
-        static const Method proppatch () { return (HTTP_PROPPATCH); }
-        static const Method unlock () { return (HTTP_UNLOCK); }
+        static const Method copy ();
+        static const Method lock ();
+        static const Method mkcol ();
+        static const Method move ();
+        static const Method propfind ();
+        static const Method proppatch ();
+        static const Method unlock ();
 
-        static const Method report () { return (HTTP_REPORT); }
-        static const Method mkactivity () { return (HTTP_MKACTIVITY); }
-        static const Method checkout () { return (HTTP_CHECKOUT); }
-        static const Method merge () { return (HTTP_MERGE); }
+        static const Method report ();
+        static const Method mkactivity ();
+        static const Method checkout ();
+        static const Method merge ();
 
-        static const Method msearch () { return (HTTP_MSEARCH); }
-        static const Method notify () { return (HTTP_NOTIFY); }
-        static const Method subscribe () { return (HTTP_SUBSCRIBE); }
-        static const Method unsubscribe () { return (HTTP_UNSUBSCRIBE); }
+        static const Method msearch ();
+        static const Method notify ();
+        static const Method subscribe ();
+        static const Method unsubscribe ();
 
-        static const Method patch () { return (HTTP_PATCH); }
+        static const Method patch ();
 
         /* data. */
     private:
@@ -64,21 +61,12 @@ namespace http {
 
         /* construction. */
     private:
-        Method ( Value value )
-            : myValue(value)
-        {}
+        Method ( Value value );
 
         /* operators. */
     public:
-        bool operator== ( const Method& rhs ) const
-        {
-            return (myValue == rhs.myValue);
-        }
-
-        bool operator!= ( const Method& rhs ) const
-        {
-            return (myValue != rhs.myValue);
-        }
+        bool operator== ( const Method& rhs ) const;
+        bool operator!= ( const Method& rhs ) const;
     };
 
 }
