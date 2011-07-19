@@ -25,6 +25,14 @@ needed.
 
 .. _NGINX: http://nginx.net/
 
+Documentation
+=============
+
+The API for defined classes is documented using Doxygen [#]_.  You will need to
+run Doxygen from the project source folder to generate the output HTML.
+
+.. [#] http://www.stack.nl/~dimitri/doxygen/
+
 Fetching the code
 =================
 
