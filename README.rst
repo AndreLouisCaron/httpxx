@@ -33,6 +33,11 @@ run Doxygen from the project source folder to generate the output HTML.
 
 .. [#] http://www.stack.nl/~dimitri/doxygen/
 
+Compiled HTML documentation for official releases is available online.  Checkout
+the `project page`_.
+
+.. _`project page`: http://andrelouiscaron.github.com/httpxx/
+
 Fetching the code
 =================
 
