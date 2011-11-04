@@ -24,7 +24,7 @@ namespace http {
     {
     }
 
-    const char * Error::what () const
+    const char * Error::what () const throw()
     {
         return (STRINGS[myNumber]);
     }

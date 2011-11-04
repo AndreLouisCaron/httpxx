@@ -39,7 +39,7 @@ namespace http {
              * @return A pointer to the start of a statically allocated error
              *  message.  Do @e not delete the returned error message.
              */
-        virtual const char * what () const;
+        virtual const char * what () const throw();
     };
 
 }

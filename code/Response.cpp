@@ -6,6 +6,7 @@
 // "http://www.opensource.org/licenses/mit".
 
 #include "Response.hpp"
+#include <string.h>
 
 namespace http {
 

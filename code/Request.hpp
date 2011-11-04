@@ -66,21 +66,9 @@ namespace http {
         static int on_url
             ( ::http_parser * parser, const char * data, size_t size );
 
-        static int on_path
-            ( ::http_parser * parser, const char * data, size_t size );
-
-        static int on_query_string
-            ( ::http_parser * parser, const char * data, size_t size );
-
-        static int on_fragment
-            ( ::http_parser * parser, const char * data, size_t size );
-
         /* data. */
     private:
         std::string myUrl;
-        std::string myPath;
-        std::string myQuery;
-        std::string myFragment;
 
         /* construction. */
     public:
@@ -121,22 +109,6 @@ namespace http {
              *  returns @c true.
              */
         const std::string& url () const;
-
-            /*!
-             * @brief Get the request path (subset of the URL).
-             *
-             * @warning This value is unspecified until @c headerscomplete()
-             *  returns @c true.
-             */
-        const std::string& path () const;
-
-            /*!
-             * @brief Get the request fragment (subset of the URL).
-             *
-             * @warning This value is unspecified until @c headerscomplete()
-             *  returns @c true.
-             */
-        const std::string& fragment () const;
     };
 
 }
