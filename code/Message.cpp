@@ -65,6 +65,13 @@ namespace http {
     int Message::on_headers_complete ( ::http_parser * parser )
     {
         Message& message = *static_cast<Message*>(parser->data);
+        if ( !message.myCurrentValue.empty() )
+        {
+            message.myHeaders[message.myCurrentField] =
+                message.myCurrentValue;
+            message.myCurrentField.clear();
+            message.myCurrentValue.clear();
+        }
         message.myHeadersComplete = true;
         return (0);
     }
