@@ -22,6 +22,8 @@ function(add_api_documentation target)
   endif()
 endfunction()
 
+enable_testing()
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/http-parser)
 
 # http-parser does not provide a CMake build script.
@@ -60,5 +62,7 @@ if(${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
 
   # Resolve include directives as if installed on the system.
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/code)
+
+  add_subdirectory(test)
 
 endif()
