@@ -20,6 +20,19 @@ namespace {
         void operator() ( Header& header ) const { header.second.clear(); }
     };
 
+    class Matches
+    {
+        const std::string& myField;
+    public:
+        Matches ( const std::string& field )
+            : myField(field)
+        {}
+        bool operator() ( const std::pair<std::string,std::string>& field )
+        {
+            return stricmp(field.first.c_str(), myField.c_str()) == 0;
+        }
+    };
+
 }
 
 namespace http {
@@ -146,13 +159,15 @@ namespace http {
 
     bool Message::hasheader ( const std::string& field ) const
     {
-        const Headers::const_iterator match = myHeaders.find(field);
+        const Headers::const_iterator match =
+            std::find_if(myHeaders.begin(), myHeaders.end(), ::Matches(field));
         return ((match != myHeaders.end()) && !match->second.empty());
     }
 
     std::string Message::header ( const std::string& field ) const
     {
-        const Headers::const_iterator match = myHeaders.find(field);
+        const Headers::const_iterator match =
+            std::find_if(myHeaders.begin(), myHeaders.end(), ::Matches(field));
         if ( match == myHeaders.end() ) {
             return ("");
         }
