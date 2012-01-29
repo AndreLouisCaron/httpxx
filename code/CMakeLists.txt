@@ -3,6 +3,7 @@
 set(headers
   Error.hpp
   Flags.hpp
+  icompare.hpp
   Message.hpp
   Method.hpp
   Request.hpp
@@ -11,6 +12,7 @@ set(headers
 set(sources
   Error.cpp
   Flags.cpp
+  icompare.cpp
   Message.cpp
   Method.cpp
   Request.cpp

@@ -8,6 +8,7 @@
 #include "Message.hpp"
 #include "Error.hpp"
 #include "Flags.hpp"
+#include "icompare.hpp"
 
 #include <algorithm>
 #include <cstring>
@@ -29,7 +30,7 @@ namespace {
         {}
         bool operator() ( const std::pair<std::string,std::string>& field )
         {
-            return stricmp(field.first.c_str(), myField.c_str()) == 0;
+            return (http::ieq(field.first, myField));
         }
     };
 
