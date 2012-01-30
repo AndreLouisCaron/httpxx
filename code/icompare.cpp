@@ -17,7 +17,11 @@ namespace http {
 
     int icmp ( const std::string& lhs, const std::string& rhs )
     {
-        return (stricmp(lhs.c_str(), rhs.c_str()));
+#ifdef _MSC_VER
+        return (::stricmp(lhs.c_str(), rhs.c_str()));
+#else
+        return (::strcasecmp(lhs.c_str(), rhs.c_str()));
+#endif
     }
 
     bool ieq ( const std::string& lhs, const std::string& rhs )
