@@ -130,12 +130,7 @@ namespace http {
 
     std::size_t Message::feed ( const char * data, ::size_t size )
     {
-        const ::size_t parsed =
-            ::http_parser_execute(&myParser, &mySettings, data, size);
-        if ( parsed != size ) {
-            throw Error(HTTP_PARSER_ERRNO(&myParser));
-        }
-        return (parsed);
+        return (::http_parser_execute(&myParser, &mySettings, data, size));
     }
 
     bool Message::complete () const
