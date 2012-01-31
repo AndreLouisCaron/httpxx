@@ -23,4 +23,5 @@ add_library(httpxx
   ${sources}
   ${headers}
 )
+target_link_libraries(httpxx http-parser)
 add_dependencies(httpxx http-parser)
