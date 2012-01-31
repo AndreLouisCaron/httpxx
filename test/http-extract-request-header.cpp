@@ -6,6 +6,7 @@
 // "http://www.opensource.org/licenses/mit".
 
 #include "http.hpp"
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 
