@@ -15,5 +15,6 @@
 #include "Method.hpp"
 #include "Request.hpp"
 #include "Response.hpp"
+#include "Url.hpp"
 
 #endif /* _http_hpp__ */

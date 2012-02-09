@@ -8,6 +8,7 @@ set(headers
   Method.hpp
   Request.hpp
   Response.hpp
+  Url.hpp
 )
 set(sources
   Error.cpp
@@ -17,6 +18,7 @@ set(sources
   Method.cpp
   Request.cpp
   Response.cpp
+  Url.cpp
 )
 add_library(httpxx
   STATIC
