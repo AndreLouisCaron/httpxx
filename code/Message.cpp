@@ -138,12 +138,17 @@ namespace http {
         return (myComplete);
     }
 
-    bool Message::headerscomplete () const
+    bool Message::headers_complete () const
     {
         return (myHeadersComplete);
     }
 
-    int Message::minorversion () const
+    int Message::major_version () const
+    {
+        return (myParser.http_major);
+    }
+
+    int Message::minor_version () const
     {
         return (myParser.http_minor);
     }
@@ -153,7 +158,7 @@ namespace http {
         return (Flags::of(myParser));
     }
 
-    bool Message::hasheader ( const std::string& field ) const
+    bool Message::has_header ( const std::string& field ) const
     {
         const Headers::const_iterator match =
             std::find_if(myHeaders.begin(), myHeaders.end(), ::Matches(field));

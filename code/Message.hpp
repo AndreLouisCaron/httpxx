@@ -110,19 +110,19 @@ namespace http {
            /*!
             * @brief Check if the request headers have been completely parsed.
             */
-        bool headerscomplete () const;
+        bool headers_complete () const;
 
             /*!
              * @brief Obtain the HTTP version used by the remote peer.
              * @return A numeric error code (should be 1 for now).
              */
-        int majorversion () const;
+        int major_version () const;
 
             /*!
              * @brief Obtain the HTTP revision used by the remote peer.
              * @return A numeric error code (should be 0 or 1 for now).
              */
-        int minorversion () const;
+        int minor_version () const;
 
             /*!
              * @brief Obtain parser flags.
@@ -137,7 +137,7 @@ namespace http {
              * @warning This value is unspecified until @c headerscomplete()
              *  returns @c true.
              */
-        bool hasheader ( const std::string& field ) const;
+        bool has_header ( const std::string& field ) const;
 
             /*!
              * @brief Obtain the value of the header named @a field.
