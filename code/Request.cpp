@@ -44,6 +44,11 @@ namespace http {
         return (Method::of(myParser));
     }
 
+    std::string Request::method_name () const
+    {
+        return (http_method_str(method()));
+    }
+
     bool Request::upgrade () const
     {
         return (myParser.upgrade != 0);

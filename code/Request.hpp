@@ -95,6 +95,11 @@ namespace http {
         const Method method () const;
 
             /*!
+             * @brief Get the HTTP method as a string.
+             */
+        std::string method_name () const;
+
+            /*!
              * @brief Check if the client requested a connection upgrade.
              *
              * @warning This value is unspecified until @c headerscomplete()

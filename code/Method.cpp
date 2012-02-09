@@ -148,4 +148,10 @@ namespace http {
     {
         return (myValue != rhs.myValue);
     }
+
+    Method::operator Value () const
+    {
+        return (myValue);
+    }
+
 }

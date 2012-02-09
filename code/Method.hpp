@@ -141,6 +141,8 @@ namespace http {
     public:
         bool operator== ( const Method& rhs ) const;
         bool operator!= ( const Method& rhs ) const;
+
+        operator Value () const;
     };
 
 }
