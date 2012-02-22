@@ -7,16 +7,6 @@
 
 #include "Error.hpp"
 
-namespace {
-
-#define HTTP_ERRNO_GEN(n, s) s,
-    const char* STRINGS[] = {
-        HTTP_ERRNO_MAP(HTTP_ERRNO_GEN)
-    };
-#undef HTTP_ERRNO_GEN
-
-}
-
 namespace http {
 
     Error::Error ( ::http_errno number )
@@ -26,7 +16,7 @@ namespace http {
 
     const char * Error::what () const throw()
     {
-        return (STRINGS[myNumber]);
+        return (::http_errno_description(myNumber));
     }
 
 }

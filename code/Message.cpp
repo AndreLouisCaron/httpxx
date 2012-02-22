@@ -50,7 +50,11 @@ namespace http {
     {
         Message& message = *static_cast<Message*>(parser->data);
         message.myComplete = true;
-        return (0);
+
+        // Force the parser to stop after the request is parsed so clients
+        // can process the request (or response).  This is to properly
+        // handle HTTP/1.1 pipelined requests.
+        return (1);
     }
 
     int Message::on_header_field
@@ -130,7 +134,21 @@ namespace http {
 
     std::size_t Message::feed ( const char * data, ::size_t size )
     {
-        return (::http_parser_execute(&myParser, &mySettings, data, size));
+        const std::size_t pass =
+            ::http_parser_execute(&myParser, &mySettings, data, size);
+        if (pass != size)
+        {
+            const ::http_errno error = 
+                static_cast< ::http_errno >(myParser.http_errno);
+
+            // The 'on_message_complete' callback fails on purpose.
+            // It forces the parser to stop between pipelined
+            // requests so clients can test the '.complete()' flag.
+            if (!myComplete) {
+                throw (Error(error));
+            }
+        }
+        return (pass);
     }
 
     bool Message::complete () const
