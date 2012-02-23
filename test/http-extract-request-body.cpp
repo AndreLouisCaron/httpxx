@@ -19,9 +19,14 @@ namespace {
         char data[1024];
         do {
             stream.read(data, sizeof(data));
-            request.feed(data, stream.gcount());
+            std::size_t size = stream.gcount();
+            std::size_t used = 0;
+            std::size_t pass = 0;
+            while ((used < size) && !request.complete()) {
+                used += request.feed(data+used, size-used);
+            }
         }
-        while (stream.gcount() > 0);
+        while ((stream.gcount() > 0) && !request.complete());
 
         // Check that we've parsed an entire request.
         if (!request.complete())

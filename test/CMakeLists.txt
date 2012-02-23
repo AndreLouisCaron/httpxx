@@ -18,17 +18,25 @@ add_test_program(pipelined-headers)
 # Test cases.
 set(test-data ${CMAKE_CURRENT_SOURCE_DIR}/data)
 add_test(minimalist-test-1
-  "${extract-request-header}" "Host" "${test-data}/request-001.txt")
+  "${http-extract-request-header}"
+  "Host"
+  "${test-data}/request-001.txt"
+)
 set_tests_properties(minimalist-test-1
   PROPERTIES PASS_REGULAR_EXPRESSION "www\\.example\\.com")
 
 add_test(minimalist-test-2
-  "${extract-response-header}" "Content-Type" "${test-data}/response-001.txt")
+  "${http-extract-response-header}"
+  "Content-Type"
+  "${test-data}/response-001.txt"
+)
 set_tests_properties(minimalist-test-2
   PROPERTIES PASS_REGULAR_EXPRESSION "text/plain")
 
 add_test(minimalist-test-3
-  "${extract-response-body}" "${test-data}/response-001.txt")
+  "${http-extract-response-body}"
+  "${test-data}/response-001.txt"
+)
 set_tests_properties(minimalist-test-3
   PROPERTIES PASS_REGULAR_EXPRESSION "Hello, world!")
 
