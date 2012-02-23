@@ -87,8 +87,53 @@ namespace http {
              * @param data Address of first byte to read.
              * @param size Number of bytes to read, starting at @a data.
              * @return Number of bytes processed.
+             * @throws Error An error occured while reading the HTTP request.
+             *
+             * The parser pauses after the headers are finished and after the
+             * body is finished, causing this method to return even if all
+             * @a size bytes have not been consumed.  The parser is implicitly
+             * unpaused so if you want to buffer an entire request, you can
+             * use a loop like:
+             *
+             * @code
+             *  // process HTTP headers until available data
+             *  // is exhausted or the HTTP body finishes.
+             *  while ((size > 0) && !request.complete())
+             *  {
+             *    // process as moch content as possible.
+             *    const std::size_t pass =
+             *      request.feed(data, size);
+             *
+             *    // update data pointers.
+             *    data += pass, size -= pass;
+             *  }
+             *  if (request.complete())
+             *  {
+             *    // process buffered request.
+             *  }
+             * @endcode
+             *
+             * or you can process only headers using a loop like:
+             * @code
+             *  // process HTTP headers until available data
+             *  // is exhausted or the HTTP headers finish.
+             *  while ((size > 0) && !request.headers_complete())
+             *  {
+             *    // process as moch content as possible.
+             *    const std::size_t pass =
+             *      request.feed(data, size);
+             *
+             *    // update data pointers.
+             *    data += pass, size -= pass;
+             *  }
+             *  if (request.headers_complete())
+             *  {
+             *    // check host header, content-length, etc.
+             *  }
+             * @endcode
              *
              * @see complete()
+             * @see headers_complete()
              */
         std::size_t feed ( const void * data, ::size_t size );
 

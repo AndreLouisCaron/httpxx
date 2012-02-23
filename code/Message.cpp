@@ -54,7 +54,9 @@ namespace http {
         // Force the parser to stop after the request is parsed so clients
         // can process the request (or response).  This is to properly
         // handle HTTP/1.1 pipelined requests.
-        return (1);
+        http_parser_pause(parser, 1);
+
+        return (0);
     }
 
     int Message::on_header_field
@@ -91,6 +93,12 @@ namespace http {
             message.myCurrentValue.clear();
         }
         message.myHeadersComplete = true;
+
+        // Force the parser to stop after the headers are parsed so clients
+        // can process the request (or response).  This is to properly
+        // handle HTTP/1.1 pipelined requests.
+        http_parser_pause(parser, 1);
+
         return (0);
     }
 
@@ -144,9 +152,12 @@ namespace http {
             // The 'on_message_complete' callback fails on purpose.
             // It forces the parser to stop between pipelined
             // requests so clients can test the '.complete()' flag.
-            if (!myComplete) {
-                throw (Error(error));
+            if (error == HPE_PAUSED) {
+                ::http_parser_pause(&myParser, 0);
+                return (pass);
             }
+
+            throw (Error(error));
         }
         return (pass);
     }

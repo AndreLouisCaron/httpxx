@@ -42,8 +42,13 @@ namespace {
         {
             // Parse as much data as possible.
             std::cerr << "Feeding..." << std::flush;
-            const std::size_t pass = request.feed(data, size);
-            std::cerr << " done (" << pass << " bytes)" << std::endl;
+            std::size_t used = 0;
+            while ((size > 0) && !request.complete())
+            {
+                std::size_t pass = request.feed(data, size);
+                used += pass, data += pass, size -= pass;
+            }
+            std::cerr << " done! (fed " << used << " bytes)" << std::endl;
 
             // Check that we've parsed an entire request.
             if (!request.complete())
@@ -56,9 +61,6 @@ namespace {
 
             // Prepare to receive another request.
             request.clear();
-
-            // Advance data pointers.
-            data += pass, size -= pass;
         }
 
         // Check the we parsed the exact number of requests.
