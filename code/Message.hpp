@@ -72,17 +72,20 @@ namespace http {
            // Not copyable.
         Message ( const Message& );
 
+    public:
+        virtual ~Message ();
+
         /* methods. */
     public:
             /*!
              * @brief Empty all request content, but keep allocated buffers.
              */
-        void clear ();
+        virtual void clear ();
 
             /*!
              * @brief Release memory owned by all internal buffers.
              */
-        void reset_buffers ();
+        virtual void reset_buffers ();
 
             /*!
              * @brief Feed data to the parser.

@@ -125,6 +125,10 @@ namespace http {
         mySettings.on_body             = &Message::on_body;
     }
 
+    Message::~Message ()
+    {
+    }
+
     void Message::clear ()
     {
             // make sure message is not seen as complete.

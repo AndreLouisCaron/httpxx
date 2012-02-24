@@ -82,12 +82,12 @@ namespace http {
             /*!
              * @brief Empty all request content, but keep allocated buffers.
              */
-        void clear ();
+        virtual void clear ();
 
             /*!
              * @brief Release memory owned by all internal buffers.
              */
-        void reset_buffers ();
+        virtual void reset_buffers ();
 
             /*!
              * @brief Obtain the HTTP method used by the client for the request.

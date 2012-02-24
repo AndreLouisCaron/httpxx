@@ -51,7 +51,7 @@ namespace http {
         /*!
          * @brief Empty all message content, but keep allocated buffers.
          */
-        void clear ()
+        virtual void clear ()
         {
             myBody.clear(), Base::clear();
         }
@@ -59,7 +59,7 @@ namespace http {
         /*!
          * @brief Release memory owned by all internal buffers.
          */
-        void reset_buffers ()
+        virtual void reset_buffers ()
         {
             myBody.swap(std::string()), Base::reset_buffers();
         }
