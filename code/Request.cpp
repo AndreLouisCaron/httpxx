@@ -39,6 +39,11 @@ namespace http {
         myParser.data = this;
     }
 
+    void Request::reset_buffers ()
+    {
+        myUrl.swap(std::string()), Message::reset_buffers();
+    }
+
     const Method Request::method () const
     {
         return (Method::of(myParser));
