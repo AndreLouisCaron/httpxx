@@ -67,6 +67,9 @@ namespace http {
              */
         Response ();
 
+    protected:
+        Response ( Configure configure );
+
         /* methods. */
     public:
         virtual void clear ();

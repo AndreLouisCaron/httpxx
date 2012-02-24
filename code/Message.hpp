@@ -30,6 +30,9 @@ namespace http {
     private:
         typedef std::map<std::string, std::string> Headers;
 
+    protected:
+        typedef void(*Configure)(::http_parser_settings&);
+
         /* class methods. */
     private:
         static int on_message_begin ( ::http_parser * parser );
@@ -43,9 +46,6 @@ namespace http {
             ( ::http_parser * parser, const char * data, size_t size );
 
         static int on_headers_complete ( ::http_parser * parser );
-
-        static int on_body
-            ( ::http_parser * parser, const char * data, size_t size );
 
         /* data. */
     protected:
@@ -65,8 +65,9 @@ namespace http {
     protected:
             /*!
              * @brief Build a fresh, independant HTTP parser.
+             * @param configure Extra parser configuration by base classes.
              */
-        Message ();
+        Message ( Configure configure=0 );
 
     private:
            // Not copyable.
@@ -199,9 +200,6 @@ namespace http {
              *  returns @c true.
              */
         std::string header ( const std::string& field ) const;
-
-    protected:
-        virtual void accept_body ( const char * data, std::size_t size ) = 0;
 
         /* operators. */
     private:

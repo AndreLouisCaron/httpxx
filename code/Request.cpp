@@ -28,6 +28,17 @@ namespace http {
         mySettings.on_url          = &Request::on_url;
     }
 
+    Request::Request ( Configure configure )
+        : Message(configure)
+    {
+            // initialize parser.
+        ::memset(&myParser, 0, sizeof(myParser));
+        ::http_parser_init(&myParser, HTTP_REQUEST);
+        myParser.data = this;
+            // select callbacks.
+        mySettings.on_url = &Request::on_url;
+    }
+
     void Request::clear ()
     {
         Message::clear();

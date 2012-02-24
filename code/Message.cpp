@@ -102,15 +102,7 @@ namespace http {
         return (0);
     }
 
-    int Message::on_body
-        ( ::http_parser * parser, const char * data, size_t size )
-    {
-        Message& message = *static_cast<Message*>(parser->data);
-        message.accept_body(data, size);
-        return (0);
-    }
-
-    Message::Message ()
+    Message::Message ( Configure configure )
     {
             // make sure message is not seen as complete.
         myComplete = false;
@@ -122,7 +114,11 @@ namespace http {
         mySettings.on_header_field     = &Message::on_header_field;
         mySettings.on_header_value     = &Message::on_header_value;
         mySettings.on_headers_complete = &Message::on_headers_complete;
-        mySettings.on_body             = &Message::on_body;
+
+            // Apply extra configuration.
+        if (configure) {
+            configure(mySettings);
+        }
     }
 
     Message::~Message ()

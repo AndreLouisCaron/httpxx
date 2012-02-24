@@ -22,6 +22,31 @@ namespace http {
     class BufferedMessage :
         public Base
     {
+        /* nested types. */
+    private:
+        typedef BufferedMessage<Base> Self;
+
+        /* class methods. */
+    private:
+        static int on_body
+            ( ::http_parser * parser, const char * data, size_t size )
+        {
+            static_cast<Self*>(parser->data)->myBody.append(data, size);
+            return (0);
+        }
+
+        static void extra_configuration ( ::http_parser_settings& settings )
+        {
+            settings.on_body = &Self::on_body;
+        }
+
+        /* construction. */
+    public:
+        BufferedMessage ()
+            : Base(&Self::extra_configuration)
+        {
+        }
+
         /* data. */
     private:
         std::string myBody;
@@ -62,12 +87,6 @@ namespace http {
         virtual void reset_buffers ()
         {
             myBody.swap(std::string()), Base::reset_buffers();
-        }
-
-    protected:
-        virtual void accept_body ( const char * data, std::size_t size )
-        {
-            myBody.append(data, size);
         }
     };
 

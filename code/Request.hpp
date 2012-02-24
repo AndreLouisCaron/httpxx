@@ -77,6 +77,9 @@ namespace http {
              */
         Request ();
 
+    protected:
+        Request ( Configure configure );
+
         /* methods. */
     public:
             /*!
