@@ -57,9 +57,6 @@ namespace http {
         std::string myCurrentValue;
         std::map<std::string, std::string> myHeaders;
 
-            // Accumulate whole body.
-        std::string myBody;
-
             // Signal when message is complete.
         bool myComplete;
         bool myHeadersComplete;
@@ -81,6 +78,11 @@ namespace http {
              * @brief Empty all request content, but keep allocated buffers.
              */
         void clear ();
+
+            /*!
+             * @brief Release memory owned by all internal buffers.
+             */
+        void reset_buffers ();
 
             /*!
              * @brief Feed data to the parser.
@@ -195,13 +197,8 @@ namespace http {
              */
         std::string header ( const std::string& field ) const;
 
-            /*!
-             * @brief Obtain the entire request body.
-             *
-             * @warning This value is undefined until @c complete() returns
-             *  @c true.
-             */
-        const std::string& body () const;
+    protected:
+        virtual void accept_body ( const char * data, std::size_t size ) = 0;
 
         /* operators. */
     private:

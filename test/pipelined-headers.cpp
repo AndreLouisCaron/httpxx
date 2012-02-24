@@ -31,7 +31,7 @@ namespace {
 
     int run ( std::istream& stream )
     {
-        http::Request request;
+        http::BufferedRequest request;
 
         int requests = 0;
 

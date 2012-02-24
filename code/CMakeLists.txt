@@ -1,6 +1,7 @@
 # httpxx library.
 
 set(headers
+  BufferedMessage.hpp
   Error.hpp
   Flags.hpp
   icompare.hpp

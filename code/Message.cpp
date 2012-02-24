@@ -106,7 +106,7 @@ namespace http {
         ( ::http_parser * parser, const char * data, size_t size )
     {
         Message& message = *static_cast<Message*>(parser->data);
-        message.myBody.append(data, size);
+        message.accept_body(data, size);
         return (0);
     }
 
@@ -132,7 +132,11 @@ namespace http {
         myHeadersComplete = false;
             // clear string content, while keeping memory allocated.
         std::for_each(myHeaders.begin(), myHeaders.end(), Clear());
-        myBody.clear();
+    }
+
+    void Message::reset_buffers ()
+    {
+        myHeaders.swap(std::map<std::string,std::string>());
     }
 
     std::size_t Message::feed ( const void * data, ::size_t size )
@@ -204,9 +208,5 @@ namespace http {
         return (match->second);
     }
 
-    const std::string& Message::body () const
-    {
-        return (myBody);
-    }
 
 }

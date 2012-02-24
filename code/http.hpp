@@ -8,6 +8,7 @@
 // (see "LICENSE.txt"). If not, terms of the license are available online at
 // "http://www.opensource.org/licenses/mit".
 
+#include "BufferedMessage.hpp"
 #include "Error.hpp"
 #include "Flags.hpp"
 #include "icompare.hpp"

@@ -15,7 +15,7 @@ namespace {
     int run ( std::istream& stream, const std::string& field )
     {
         // Parse HTTP request.
-        http::Request request;
+        http::BufferedRequest request;
         char data[1024];
         do {
             stream.read(data, sizeof(data));
