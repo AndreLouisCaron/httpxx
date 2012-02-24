@@ -69,6 +69,8 @@ namespace http {
 
         /* methods. */
     public:
+        virtual void clear ();
+
             /*!
              * @brief Obtain the HTTP status code returned by the server.
              * @return Numeric HTTP status code.
