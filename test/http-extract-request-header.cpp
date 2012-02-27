@@ -63,7 +63,7 @@ try
     if (argc == 2) {
         return ::run(std::cin, field);
     }
-    std::ifstream file(argv[2]);
+    std::ifstream file(argv[2], std::ios::binary);
     if (!file.is_open())
     {
         std::cerr
