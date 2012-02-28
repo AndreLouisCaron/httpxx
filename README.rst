@@ -33,7 +33,7 @@ run Doxygen from the project source folder to generate the output HTML.
 
 .. [#] http://www.stack.nl/~dimitri/doxygen/
 
-Compiled HTML documentation for official releases is available online.  Checkout
+Compiled HTML documentation for official releases is available online.  Check
 the `project page`_.
 
 .. _`project page`: http://andrelouiscaron.github.com/httpxx/
@@ -51,7 +51,7 @@ the entire source code, make sure you fetch submodules [#]_ too:
    $ git submodule init
    $ git submodule update
 
-.. [#] http://kernel.org/pub/software/scm/git/docs/git-submodule.html
+.. [#] http://book.git-scm.com/5_submodules.html
 
 Portability
 ===========
@@ -60,7 +60,7 @@ Portability
 ``httpcxx`` uses only standard library facilities (namely ``std::string`` and
 ``std::map``) and introduces no additional dependencies.
 
-The code should compile as is under a standard-compilient C++03 implementation.
+The code should compile as is under a standard-compliant C++03 implementation.
 
 Memory allocation policy
 ========================
