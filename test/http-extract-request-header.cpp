@@ -17,14 +17,35 @@ namespace {
         // Parse HTTP request.
         http::Request request;
         char data[1024];
+        std::size_t head = 0;
+        std::size_t body = 0;
         do {
             stream.read(data, sizeof(data));
             std::size_t size = stream.gcount();
             std::size_t used = 0;
-            std::size_t pass = 0;
-            while ((used < size) && !request.complete()) {
-                used += request.feed(data+used, size-used);
+            while ((used < size) && !request.headers_complete())
+            {
+                const std::size_t pass = request.feed(data+used, size-used);
+                used += pass, head += pass;
+                if (request.headers_complete())
+                {
+                    std::cerr
+                        << "Head size: " << head << "."
+                        << std::endl;
+                }
             }
+            while ((used < size) && !request.complete())
+            {
+                const std::size_t pass = request.feed(data+used, size-used);
+                used += pass, body += pass;
+                if (request.complete())
+                {
+                    std::cerr
+                        << "Body size: " << body << "."
+                        << std::endl;
+                }
+            }
+            head += used;
         }
         while ((stream.gcount() > 0) && !request.complete());
 

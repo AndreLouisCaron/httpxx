@@ -14,6 +14,8 @@
 #include <cstring>
 #include <utility>
 
+#include <iostream>
+
 namespace {
 
     struct Clear {
@@ -146,24 +148,39 @@ namespace http {
 
     std::size_t Message::feed ( const char * data, ::size_t size )
     {
-        const std::size_t pass =
-            ::http_parser_execute(&myParser, &mySettings, data, size);
-        if (pass != size)
-        {
-            const ::http_errno error = 
-                static_cast< ::http_errno >(myParser.http_errno);
+        std::size_t used = ::http_parser_execute
+            (&myParser, &mySettings, data, size);
 
-            // The 'on_message_complete' callback fails on purpose.
-            // It forces the parser to stop between pipelined
-            // requests so clients can test the '.complete()' flag.
-            if (error == HPE_PAUSED) {
-                ::http_parser_pause(&myParser, 0);
-                return (pass);
-            }
+        const ::http_errno error =
+            static_cast< ::http_errno >(myParser.http_errno);
 
-            throw (Error(error));
+        // The 'on_message_complete' and 'on_headers_complete' callbacks fail
+        // on purpose to force the parser to stop between pipelined requests.
+        // This allows the clients to reliably detect the end of headers and
+        // the end of the message.  Make sure the parser is always unpaused
+        // for the next call to 'feed'.
+        if (error == HPE_PAUSED) {
+            ::http_parser_pause(&myParser, 0);
         }
-        return (pass);
+
+        if (used < size)
+        {
+            if (error == HPE_PAUSED)
+            {
+                // Make sure the byte that triggered the pause
+                // after the headers is properly processed.
+                if (!myComplete)
+                {
+                    used += ::http_parser_execute
+                        (&myParser, &mySettings, data+used, 1);
+                }
+            }
+            else {
+                throw (Error(error));
+            }
+        }
+
+        return (used);
     }
 
     bool Message::complete () const
