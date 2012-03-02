@@ -201,6 +201,18 @@ namespace http {
              */
         std::string header ( const std::string& field ) const;
 
+        /*!
+         * @brief Check if this is not the last request/response.
+         * @return @c false if you should shut down the connection, @c true if
+         *  you should leave it open.
+         *
+         * For the party sending the response, this indicates if you should
+         * send the "Connection: close" header.  For the party receiving the
+         * response, this indicates if you should close the connection after
+         * reading the message.
+         */
+        bool should_keep_alive () const;
+
         /* operators. */
     private:
            // Not copyable.

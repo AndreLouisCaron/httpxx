@@ -225,5 +225,10 @@ namespace http {
         return (match->second);
     }
 
+    bool Message::should_keep_alive () const
+    {
+        return (::http_should_keep_alive
+                (const_cast< ::http_parser* >(&myParser)) != 0);
+    }
 
 }
