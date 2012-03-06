@@ -45,6 +45,7 @@ namespace http {
         Message& message = *static_cast<Message*>(parser->data);
         message.myComplete = false;
         message.myHeadersComplete = false;
+        message.mySkipBody = false;
         return (0);
     }
 
@@ -101,7 +102,7 @@ namespace http {
         // handle HTTP/1.1 pipelined requests.
         http_parser_pause(parser, 1);
 
-        return (0);
+        return (message.mySkipBody? 1 : 0);
     }
 
     Message::Message ( Configure configure )
@@ -109,6 +110,7 @@ namespace http {
             // make sure message is not seen as complete.
         myComplete = false;
         myHeadersComplete = false;
+        mySkipBody = false;
             // select callbacks.
         ::memset(&mySettings, 0, sizeof(mySettings));
         mySettings.on_message_complete = &Message::on_message_complete;
@@ -229,6 +231,11 @@ namespace http {
     {
         return (::http_should_keep_alive
                 (const_cast< ::http_parser* >(&myParser)) != 0);
+    }
+
+    void Message::skip_body ()
+    {
+        mySkipBody = true;
     }
 
 }

@@ -61,6 +61,8 @@ namespace http {
         bool myComplete;
         bool myHeadersComplete;
 
+        bool mySkipBody;
+
         /* construction. */
     protected:
             /*!
@@ -212,6 +214,20 @@ namespace http {
          * reading the message.
          */
         bool should_keep_alive () const;
+
+        /*!
+         * @brief Force the parser to ignore the message body.
+         *
+         * This method is primarily useful in proxying an HTTP HEAD request.
+         * A response to a HEAD request has no body (by definition) but still
+         * produces the @c Content-Length header for the body that @e would be
+         * returned by a GET request for the same resource.  There is no way to
+         * tell only from examining the response headers that such a reply is
+         * for a HEAD request, so the parser must be told not to expect more
+         * data.  If proxying a HEAD request, call this method before the
+         * response headers have been completely parsed.
+         */
+        void skip_body ();
 
         /* operators. */
     private:
