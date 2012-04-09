@@ -45,7 +45,6 @@ namespace http {
         Message& message = *static_cast<Message*>(parser->data);
         message.myComplete = false;
         message.myHeadersComplete = false;
-        message.mySkipBody = false;
         return (0);
     }
 
@@ -134,6 +133,7 @@ namespace http {
             // make sure message is not seen as complete.
         myComplete = false;
         myHeadersComplete = false;
+        mySkipBody = false;
             // clear string content, while keeping memory allocated.
         std::for_each(myHeaders.begin(), myHeaders.end(), Clear());
     }
