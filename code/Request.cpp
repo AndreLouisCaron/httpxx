@@ -52,7 +52,9 @@ namespace http {
 
     void Request::reset_buffers ()
     {
-        myUrl.swap(std::string()), Message::reset_buffers();
+        myUrl.clear();
+
+        Message::reset_buffers();
     }
 
     const Method Request::method () const

@@ -86,7 +86,8 @@ namespace http {
          */
         virtual void reset_buffers ()
         {
-            myBody.swap(std::string()), Base::reset_buffers();
+            myBody.clear();
+            Base::reset_buffers();
         }
     };
 
