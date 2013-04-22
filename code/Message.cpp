@@ -138,7 +138,6 @@ namespace http {
 
     void Message::reset_buffers ()
     {
-        // std::map<std::string, std::string> empty;
         myHeaders.clear();
     }
 
