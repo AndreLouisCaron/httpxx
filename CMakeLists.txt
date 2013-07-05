@@ -24,11 +24,11 @@ endfunction()
 
 enable_testing()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/http-parser)
+include_directories(${PROJECT_SOURCE_DIR}/libs/http-parser)
 
 # http-parser does not provide a CMake build script.
 set(http_parser_DIR
-   ${CMAKE_SOURCE_DIR}/libs/http-parser
+   ${PROJECT_SOURCE_DIR}/libs/http-parser
 )
 set(http-parser_headers ${http_parser_DIR}/http_parser.h)
 set(http-parser_sources ${http_parser_DIR}/http_parser.c)
@@ -61,7 +61,7 @@ if(${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
   add_api_documentation(doc)
 
   # Resolve include directives as if installed on the system.
-  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/code)
+  include_directories(${PROJECT_SOURCE_DIR}/code)
 
   add_subdirectory(test)
 
