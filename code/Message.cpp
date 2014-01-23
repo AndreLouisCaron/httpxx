@@ -138,7 +138,8 @@ namespace http {
 
     void Message::reset_buffers ()
     {
-        myHeaders.swap(std::map<std::string,std::string>());
+        std::map<std::string,std::string> empty;
+        myHeaders.swap(empty);
     }
 
     std::size_t Message::feed ( const void * data, ::size_t size )
