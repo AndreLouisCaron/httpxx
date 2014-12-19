@@ -22,8 +22,8 @@ namespace http {
 
         /* construction. */
     public:
-        Url ( const std::string& url );
-        Url ( const char * data, std::size_t size );
+        Url ( const std::string& url, bool isConnect = false );
+        Url ( const char * data, std::size_t size, bool isConnect = false );
 
         /* methods. */
     public:
