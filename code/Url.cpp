@@ -10,22 +10,22 @@
 
 namespace http {
 
-    Url::Url ( const std::string& url )
+    Url::Url ( const std::string& url, bool isConnect )
         : myData(url)
     {
         const int result = ::http_parser_parse_url
-            (myData.data(), myData.size(), 0, &myFields);
+            (myData.data(), myData.size(), isConnect ? 1 : 0, &myFields);
         if (result != 0)
         { 
            // TODO: handle failure.
         }
     }
 
-    Url::Url ( const char * data, std::size_t size )
+    Url::Url ( const char * data, std::size_t size, bool isConnect )
         : myData(data, size)
     {
         const int result = ::http_parser_parse_url
-            (myData.data(), myData.size(), 0, &myFields);
+            (myData.data(), myData.size(), isConnect ? 1 : 0, &myFields);
         if (result != 0)
         {
             // TODO: handle failure.
