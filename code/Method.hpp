@@ -10,6 +10,8 @@
 
 #include <http_parser.h>
 
+#include <string>
+
 namespace http {
 
         /*!
@@ -126,6 +128,8 @@ namespace http {
         static const Method notify ();
         static const Method subscribe ();
         static const Method unsubscribe ();
+
+		std::string to_string() const;
 
         //! @}
 

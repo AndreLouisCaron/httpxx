@@ -27,7 +27,7 @@ namespace http {
     class Message
     {
         /* nested types. */
-    private:
+	public:
         typedef std::map<std::string, std::string> Headers;
 
     protected:
@@ -200,6 +200,13 @@ namespace http {
              *  returns @c true.
              */
         std::string header ( const std::string& field ) const;
+				
+		/*!
+		 * @brief Returns a const reference to the headers map
+		 * @warning This value is unspecified until @c headerscomplete()
+		 * returns @c true.
+		 */
+		const Headers& headers() const;
 
         /*!
          * @brief Check if this is not the last request/response.

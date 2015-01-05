@@ -154,4 +154,9 @@ namespace http {
         return (myValue);
     }
 
+	std::string Method::to_string() const
+	{
+		return http_method_str(myValue);
+	}
+
 }

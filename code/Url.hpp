@@ -45,6 +45,9 @@ namespace http {
         bool has_fragment () const;
         std::string fragment () const;
 
+		std::string absolute_path() const;
+		std::string path_and_query() const;
+
     private:
         bool has_field ( http_parser_url_fields field ) const;
         std::string get_field ( http_parser_url_fields field ) const;

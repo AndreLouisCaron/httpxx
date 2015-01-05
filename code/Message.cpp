@@ -226,6 +226,11 @@ namespace http {
         return (match->second);
     }
 
+	const Message::Headers& Message::headers() const
+	{
+		return myHeaders;
+	}
+
     bool Message::should_keep_alive () const
     {
         return (::http_should_keep_alive
