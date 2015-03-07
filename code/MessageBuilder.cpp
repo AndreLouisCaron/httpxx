@@ -1,5 +1,6 @@
 #include "MessageBuilder.hpp"
 
+#include <stdio.h>
 
 namespace http
 {
@@ -62,13 +63,8 @@ namespace http
 		char majorVersion[16] = {0};
 		char minorVersion[16] = {0};
 
-#ifdef WIN32
-		_itoa_s(major_version(), majorVersion, 16, 10);
-		_itoa_s(minor_version(), minorVersion, 16, 10);
-#else
-		itoa(major_version(), majorVersion, 10);
-		itoa(minor_version(), minorVersion, 10);
-#endif
+		snprintf(majorVersion, 16, "%d", major_version());
+		snprintf(minorVersion, 16, "%d", minor_version());
 
 		versionString += majorVersion;
 		versionString += ".";

@@ -1,8 +1,6 @@
 #include "ResponseBuilder.hpp"
 
-#include <http_parser.h>
-#include <map>
-
+#include <stdio.h>
 
 struct StatusCodesStruct
 {
@@ -114,12 +112,8 @@ namespace http
 	{
 		char statusBuf[16];
 
-#ifdef WIN32
-		_itoa_s(status(), statusBuf, 16, 10);
-#else
-		itoa(status(), statusBuf, 10);
-#endif
-		
+		snprintf(statusBuf, 16, "%d", status());
+
 		std::string statusLine(version_to_string());
 		statusLine += " ";
 		statusLine += statusBuf;
