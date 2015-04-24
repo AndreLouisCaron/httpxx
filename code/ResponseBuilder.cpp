@@ -2,6 +2,10 @@
 
 #include <stdio.h>
 
+#if defined(_MSC_VER) && !defined(snprinf)
+#define snprintf sprintf_s
+#endif
+
 struct StatusCodesStruct
 {
 	int code;
