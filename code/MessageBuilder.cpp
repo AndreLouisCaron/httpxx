@@ -61,6 +61,16 @@ namespace http
 		myFlags = flags;
 	}
 
+	Message::Headers& MessageBuilder::headers()
+	{
+		return myHeaders;
+	}
+
+	const Message::Headers& MessageBuilder::headers() const
+	{
+		return myHeaders;
+	}
+
 	std::string MessageBuilder::version_to_string() const
 	{
 		std::string versionString("HTTP/");

@@ -55,6 +55,16 @@ namespace http
 		void set_flags(const Flags& flags);
 
 		/*!
+		 * @brief Returns a reference to the headers map
+		 */
+		Message::Headers& headers();
+
+		/*!
+		* @brief Returns a reference to the headers map
+		*/
+		const Message::Headers& headers() const;
+
+		/*!
 		 * @brief Returns a string representation of the HTTP version
 		 */
 		std::string version_to_string() const;
