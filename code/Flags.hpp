@@ -32,6 +32,17 @@ namespace http {
 
         /* class methods. */
     public:
+		Flags();
+		Flags(const Flags& flags);
+
+		void set_chunked(bool chunked);
+		void set_keepalive(bool keepalive);
+		void set_close(bool close);
+		void set_trailing(bool trailing);
+		void set_upgrade(bool upgrade);
+		void set_skipbody(bool skipbody);
+
+	public:
             /*!
              * @brief Extract the flags set in @a parser.
              */
@@ -92,6 +103,10 @@ namespace http {
              * @return @c true if all flags in @a rhs are signaled.
              */
         bool operator& ( const Flags& rhs ) const;
+
+		Flags operator| ( const Flags& rhs ) const;
+
+		Flags operator~ () const;
     };
 
 }

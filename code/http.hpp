@@ -13,9 +13,12 @@
 #include "Flags.hpp"
 #include "icompare.hpp"
 #include "Message.hpp"
+#include "MessageBuilder.hpp"
 #include "Method.hpp"
 #include "Request.hpp"
+#include "RequestBuilder.hpp"
 #include "Response.hpp"
+#include "ResponseBuilder.hpp"
 #include "Url.hpp"
 
 #endif /* _http_hpp__ */

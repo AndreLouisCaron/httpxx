@@ -106,4 +106,33 @@ namespace http {
                               myFields.field_data[int(field)].len));
     }
 
+	std::string Url::absolute_path() const
+	{
+		std::string absolutePath;
+		if(has_path())
+		{
+			absolutePath += path();
+		}
+
+		if(absolutePath.empty())
+		{
+			absolutePath = "/";
+		}
+		
+		return absolutePath;
+	}
+
+	std::string Url::path_and_query() const
+	{
+		std::string pathAndQuery(absolute_path());
+
+		if(has_query())
+		{
+			pathAndQuery += "?";
+			pathAndQuery += query();
+		}
+
+		return pathAndQuery;
+	}
+
 }

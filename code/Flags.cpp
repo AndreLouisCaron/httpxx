@@ -8,6 +8,92 @@
 #include "Flags.hpp"
 
 namespace http {
+	Flags::Flags() : myValue(Flags::Value(0))
+	{
+
+	}
+
+	Flags::Flags(const Flags& flags) : myValue(flags.myValue)
+	{
+
+	}
+
+	Flags::Flags(Value value) : myValue(value)
+	{
+
+	}
+
+	void Flags::set_chunked(bool chunked)
+	{
+		if(chunked)
+		{
+			myValue = (Flags::Value)((int)myValue | F_CHUNKED);
+		}
+		else
+		{
+			myValue = (Flags::Value)((int)myValue | ~F_CHUNKED) ;
+		}
+	}
+
+	void Flags::set_keepalive(bool keepalive)
+	{
+		if(keepalive)
+		{
+			myValue = (Flags::Value)((int)myValue | F_CONNECTION_KEEP_ALIVE);
+		}
+		else
+		{
+			myValue = (Flags::Value)((int)myValue | ~F_CONNECTION_KEEP_ALIVE) ;
+		}
+	}
+
+	void Flags::set_close(bool close)
+	{
+		if(close)
+		{
+			myValue = (Flags::Value)((int)myValue | F_CONNECTION_CLOSE);
+		}
+		else
+		{
+			myValue = (Flags::Value)((int)myValue | ~F_CONNECTION_CLOSE) ;
+		}
+	}
+
+	void Flags::set_trailing(bool trailing)
+	{
+		if(trailing)
+		{
+			myValue = (Flags::Value)((int)myValue | F_TRAILING);
+		}
+		else
+		{
+			myValue = (Flags::Value)((int)myValue | ~F_TRAILING) ;
+		}
+	}
+
+	void Flags::set_upgrade(bool upgrade)
+	{
+		if(upgrade)
+		{
+			myValue = (Flags::Value)((int)myValue | F_UPGRADE);
+		}
+		else
+		{
+			myValue = (Flags::Value)((int)myValue | ~F_UPGRADE) ;
+		}
+	}
+
+	void Flags::set_skipbody(bool skipbody)
+	{
+		if(skipbody)
+		{
+			myValue = (Flags::Value)((int)myValue | F_SKIPBODY);
+		}
+		else
+		{
+			myValue = (Flags::Value)((int)myValue | ~F_SKIPBODY) ;
+		}
+	}
 
     const Flags Flags::of ( const ::http_parser& parser )
     {
@@ -43,15 +129,20 @@ namespace http {
     {
         return (F_SKIPBODY);
     }
-
-    Flags::Flags ( Value value )
-        : myValue(value)
-    {
-    }
-
+	    
     bool Flags::operator& ( const Flags& rhs ) const
     {
         return ((myValue & rhs.myValue) != 0);
     }
+
+	http::Flags Flags::operator| ( const Flags& rhs ) const
+	{
+		return Flags((Value)(myValue | rhs.myValue));
+	}
+
+	http::Flags Flags::operator~ () const
+	{
+		return Flags((Value)(myValue));
+	}
 
 }
