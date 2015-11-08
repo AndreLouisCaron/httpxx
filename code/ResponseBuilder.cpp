@@ -99,7 +99,7 @@ namespace http
 	std::string ResponseBuilder::status_reason() const
 	{
 		std::map<int, std::string>::const_iterator cit = gStatusCodes.codes.find(status());
-		if(cit != gStatusCodes.codes.cend())
+		if(cit != gStatusCodes.codes.end())
 		{
 			return cit->second;
 		}

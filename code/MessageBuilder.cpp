@@ -90,7 +90,7 @@ namespace http
 	std::string MessageBuilder::headers_to_string() const
 	{
 		std::string headersString;
-		for(Message::Headers::const_iterator cit = myHeaders.cbegin(); cit != myHeaders.cend(); ++cit)
+		for(Message::Headers::const_iterator cit = myHeaders.begin(); cit != myHeaders.end(); ++cit)
 		{
 			headersString += cit->first;
 			headersString += ": ";
