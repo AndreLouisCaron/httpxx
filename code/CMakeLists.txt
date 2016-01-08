@@ -34,3 +34,10 @@ add_library(httpxx
 )
 target_link_libraries(httpxx http-parser)
 add_dependencies(httpxx http-parser)
+install(TARGETS httpxx
+  EXPORT httpxxTargets
+  ARCHIVE DESTINATION lib COMPONENT dev
+  RUNTIME DESTINATION bin COMPONENT lib
+  LIBRARY DESTINATION lib COMPONENT lib
+  INCLUDES DESTINATION include)
+install(FILES ${headers} DESTINATION include/httpxx COMPONENT dev)
