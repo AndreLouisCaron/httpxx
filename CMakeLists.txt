@@ -48,7 +48,7 @@ add_library(http-parser
 )
 
 # Build the primary target.
-add_subdirectory(code)
+add_subdirectory(httpxx)
 
 # When building in standalone mode, build demo projects.
 if(${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
