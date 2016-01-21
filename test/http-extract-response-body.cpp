@@ -5,7 +5,7 @@
 // (see "LICENSE.txt"). If not, terms of the license are available online at
 // "http://www.opensource.org/licenses/mit".
 
-#include "http.hpp"
+#include <httpxx/http.hpp>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>

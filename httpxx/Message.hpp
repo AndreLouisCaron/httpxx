@@ -8,7 +8,7 @@
 // (see "LICENSE.txt"). If not, terms of the license are available online at
 // "http://www.opensource.org/licenses/mit".
 
-#include <http_parser.h>
+#include <httpxx/http-parser/http_parser.h>
 
 #include <map>
 #include <string>
@@ -200,7 +200,7 @@ namespace http {
              *  returns @c true.
              */
         std::string header ( const std::string& field ) const;
-				
+
 		/*!
 		 * @brief Returns a const reference to the headers map
 		 * @warning This value is unspecified until @c headerscomplete()
