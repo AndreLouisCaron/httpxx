@@ -1,3 +1,3 @@
-[submodule "libs/http-parser"]
+[submodule "http-parser"]
 	path = httpxx/http-parser
-url=git://github.com/joyent/http-parser.git
+url=https://github.com/joyent/http-parser.git
