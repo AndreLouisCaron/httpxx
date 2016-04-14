@@ -3,8 +3,12 @@
 #
 
 cmake_minimum_required(VERSION 2.6)
-
-project(httpxx)
+if(CMAKE_VERSION VERSION_LESS 3.0)
+  project(httpxx)
+else()
+  cmake_policy(SET CMP0048 NEW)
+  project(httpxx VERSION 0.1.0)
+endif()
 
 # Compile API documentation from source code.
 function(add_api_documentation target)
