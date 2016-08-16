@@ -11,3 +11,4 @@ build/
 /test/http-extract-response-body
 /test/http-extract-response-header
 /test/pipelined-headers
+/test/userbufferedmessage
