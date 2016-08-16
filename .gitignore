@@ -1,2 +1,13 @@
 build/
 *~
+/Makefile
+/Testing/
+/httpxx/Makefile
+/httpxx/Testing/
+/test/Makefile
+/test/Testing/
+/test/http-extract-request-body
+/test/http-extract-request-header
+/test/http-extract-response-body
+/test/http-extract-response-header
+/test/pipelined-headers

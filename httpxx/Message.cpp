@@ -52,6 +52,13 @@ namespace http {
     {
         Message& message = *static_cast<Message*>(parser->data);
         message.myComplete = true;
+        if ( !message.myCurrentValue.empty() )
+        {
+            message.myHeaders[message.myCurrentField] =
+                message.myCurrentValue;
+            message.myCurrentField.clear();
+            message.myCurrentValue.clear();
+        }
 
         // Force the parser to stop after the request is parsed so clients
         // can process the request (or response).  This is to properly
