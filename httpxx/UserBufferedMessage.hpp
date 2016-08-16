@@ -1,5 +1,5 @@
-#ifndef _http_UserUserBufferedMessage_hpp__
-#define _http_UserUserBufferedMessage_hpp__
+#ifndef _http_UserBufferedMessage_hpp__
+#define _http_UserBufferedMessage_hpp__
 
 // Copyright(c) Andre Caron <andre.l.caron@gmail.com>, 2011-2012
 //
@@ -18,13 +18,13 @@ namespace http {
      * @brief Default strategy for handling message bodies: buffer them.
      * @tparam Message base class, must be @c Request or @c Response.
      */
-    template<class Base, class BufferType>
-    class UserBufferedMessage :
-        public Base
+    template<class Base,class T>
+    class UserBufferedMessage
+    : public Base
     {
         /* nested types. */
     private:
-        typedef UserBufferedMessage<Base, BufferType> Self;
+      typedef UserBufferedMessage<Base, T> Self;
 
         /* class methods. */
     private:
@@ -42,57 +42,39 @@ namespace http {
 
         /* construction. */
     public:
-        UserBufferedMessage ()
-            : Base(&Self::extra_configuration)
+        UserBufferedMessage (T &userbuff)
+	  : Base(&Self::extra_configuration), myBody(userbuff)
         {
         }
 
         /* data. */
     private:
-        std::string myBody;
-
-        /* methods. */
-    public:
-        /*!
-         * @brief Obtain the buffered message body.
-         */
-        const std::string& body () const
-        {
-            return (myBody);
-        }
-
-        /*!
-         * @brief Clear the body contents after processing them.
-         *
-         * This method can be used between calls to @c feed() once @c
-         * headers_complete() returns @c true, allowing you to process the
-         * body in chunks at your convenience.
-         */
-        void clear_body ()
-        {
-            myBody.clear();
-        }
-
-        /*!
-         * @brief Empty all message content, but keep allocated buffers.
-         */
-        virtual void clear ()
-        {
-            myBody.clear(), Base::clear();
-        }
-
-        /*!
-         * @brief Release memory owned by all internal buffers.
-         */
-        virtual void reset_buffers ()
-        {
-            std::string().swap(myBody), Base::reset_buffers();
-        }
+        T &myBody;
     };
 
-    typedef UserBufferedMessage<Request, class BufferType> UserBufferedRequest;
-    typedef UserBufferedMessage<Response, class BufferType> UserBufferedResponse;
+    template<class T>
+    class UserBufferedRequest : public UserBufferedMessage<Request, T>
+    {
+    public:
+      UserBufferedRequest(T &userbuf)
+        : UserBufferedMessage<Request, T>(userbuf)
+      {
+      }
+    private:
+      UserBufferedRequest() {}
+    };
 
+    template<class T>
+    class UserBufferedResponse : public UserBufferedMessage<Response, T>
+    {
+    public:
+      UserBufferedResponse(T &userbuf)
+        : UserBufferedMessage<Response, T>(userbuf)
+      {
+      }
+    private:
+      UserBufferedResponse() {}
+    };
 }
 
-#endif /* _http_UserUserBufferedMessage_hpp__ */
+#endif /* _http_UserBufferedMessage_hpp__ */

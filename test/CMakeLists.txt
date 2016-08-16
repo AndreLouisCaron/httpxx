@@ -14,6 +14,7 @@ add_test_program(http-extract-response-header)
 add_test_program(http-extract-request-body)
 add_test_program(http-extract-response-body)
 add_test_program(pipelined-headers)
+add_test_program(userbufferedmessage)
 
 # Test cases.
 set(test-data ${CMAKE_CURRENT_SOURCE_DIR}/data)
@@ -41,3 +42,5 @@ set_tests_properties(minimalist-test-3
   PROPERTIES PASS_REGULAR_EXPRESSION "Hello, world!")
 
 add_test(pipelined-headers "${pipelined-headers}")
+
+add_test(userbufferedmessage "${userbufferedmessage}")

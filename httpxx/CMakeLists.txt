@@ -19,6 +19,7 @@ install(FILES ${http-parser_headers} DESTINATION include/httpxx/http-parser
 
 set(headers
   BufferedMessage.hpp
+  UserBufferedMessage.hpp
   Error.hpp
   Flags.hpp
   icompare.hpp

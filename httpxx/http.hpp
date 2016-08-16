@@ -9,6 +9,7 @@
 // "http://www.opensource.org/licenses/mit".
 
 #include "BufferedMessage.hpp"
+#include "UserBufferedMessage.hpp"
 #include "Error.hpp"
 #include "Flags.hpp"
 #include "icompare.hpp"
