@@ -15,8 +15,9 @@
 namespace http {
 
     /*!
-     * @brief Default strategy for handling message bodies: buffer them.
-     * @tparam Message base class, must be @c Request or @c Response.
+     * @brief Using user specified storage for body to avoid memory copy.
+     * @tparam Base Message base class, must be @c Request or @c Response.
+     * @tparam T Type of storage which supports append(const char*, size_t).
      */
     template<class Base,class T>
     class UserBufferedMessage
