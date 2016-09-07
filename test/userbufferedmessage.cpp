@@ -31,6 +31,8 @@ static size_t resp1len = strlen(resp1);
 
 static const char *resp2 =
   "HTTP/1.1 200 OK\r\n"
+  "Host: 192.168.1.1\r\n"
+  "Content-Length: 0\r\n"
   "\r\n";
 
 static size_t resp2len = strlen(resp2);
@@ -45,7 +47,7 @@ static void test_req(const char *data,
   while (used < datalen) {
     used += parser.feed(data + used, datalen - used);
   }
-  parser.feed((void*)NULL, 0);
+  // parser.feed((void*)NULL, 0);
   assert(used == datalen);
   assert(parser.headers_complete());
   assert(parser.complete());
@@ -64,7 +66,7 @@ static void test_resp(const char *data,
   while (used < datalen) {
     used += parser.feed(data + used, datalen - used);
   }
-  parser.feed((void*)NULL, 0);
+  // parser.feed((void*)NULL, 0);
   assert(used == datalen);
   assert(parser.headers_complete());
   assert(parser.complete());
