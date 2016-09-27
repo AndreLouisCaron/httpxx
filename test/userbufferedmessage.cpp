@@ -47,7 +47,7 @@ static void test_req(const char *data,
   while (used < datalen) {
     used += parser.feed(data + used, datalen - used);
   }
-  // parser.feed((void*)NULL, 0);
+
   assert(used == datalen);
   assert(parser.headers_complete());
   assert(parser.complete());
@@ -66,7 +66,7 @@ static void test_resp(const char *data,
   while (used < datalen) {
     used += parser.feed(data + used, datalen - used);
   }
-  // parser.feed((void*)NULL, 0);
+
   assert(used == datalen);
   assert(parser.headers_complete());
   assert(parser.complete());
