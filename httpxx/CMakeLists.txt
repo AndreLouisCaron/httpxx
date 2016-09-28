@@ -11,7 +11,7 @@ if(MSVC)
     PROPERTIES LANGUAGE CXX
   )
 endif()
-add_library(http-parser STATIC ${http-parser_headers} ${http-parser_sources})
+
 install(FILES ${http-parser_headers} DESTINATION include/httpxx/http-parser
   COMPONENT dev)
 
@@ -44,14 +44,14 @@ set(sources
   Response.cpp
   ResponseBuilder.cpp
   Url.cpp
+  http-parser/http_parser.c
 )
 add_library(httpxx
   STATIC
   ${sources}
   ${headers}
 )
-target_link_libraries(httpxx http-parser)
-add_dependencies(httpxx http-parser)
+
 install(TARGETS httpxx
   EXPORT httpxxTargets
   ARCHIVE DESTINATION lib COMPONENT dev
