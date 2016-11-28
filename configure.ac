@@ -41,5 +41,5 @@ AC_FUNC_MALLOC
 AC_FUNC_STRNLEN
 AC_CHECK_FUNCS([memchr memset strcasecmp strtoul])
 
-AC_CONFIG_FILES([Makefile httpxx/Makefile])
+AC_CONFIG_FILES([Makefile httpxx/Makefile test/Makefile])
 AC_OUTPUT
