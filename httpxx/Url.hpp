@@ -11,6 +11,7 @@
 #include <httpxx/http-parser/http_parser.h>
 
 #include <string>
+#include <map>
 
 namespace http {
 
@@ -19,12 +20,18 @@ namespace http {
         /* data. */
     private:
         std::string myData;
+        bool myValid;
         ::http_parser_url myFields;
 
         /* construction. */
     public:
+        Url () {myValid = false;}
         Url ( const std::string& url, bool isConnect = false );
         Url ( const char * data, std::size_t size, bool isConnect = false );
+
+        bool parse( const std::string& url, bool isConnect = false );
+        std::string url() const {return myData;}
+        bool valid() const {return myValid;}
 
         /* methods. */
     public:
@@ -48,6 +55,8 @@ namespace http {
 
 		std::string absolute_path() const;
 		std::string path_and_query() const;
+
+        std::map<std::string, std::string> query_values() const;
 
     private:
         bool has_field ( http_parser_url_fields field ) const;

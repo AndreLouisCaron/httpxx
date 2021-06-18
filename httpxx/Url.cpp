@@ -7,29 +7,28 @@
 
 #include "Url.hpp"
 #include <iostream>
+#include <string.h>
 
 namespace http {
 
     Url::Url ( const std::string& url, bool isConnect )
-        : myData(url)
     {
-        const int result = ::http_parser_parse_url
-            (myData.data(), myData.size(), isConnect ? 1 : 0, &myFields);
-        if (result != 0)
-        { 
-           // TODO: handle failure.
-        }
+        parse(url, isConnect);
     }
 
     Url::Url ( const char * data, std::size_t size, bool isConnect )
-        : myData(data, size)
     {
+        parse(std::string(data, size), isConnect);
+    }
+
+    bool Url::parse( const std::string& url, bool isConnect )
+    {
+        myData = url;
+        memset(&myFields, 0, sizeof(myFields));
         const int result = ::http_parser_parse_url
             (myData.data(), myData.size(), isConnect ? 1 : 0, &myFields);
-        if (result != 0)
-        {
-            // TODO: handle failure.
-        }
+        myValid = (result == 0);
+        return myValid;
     }
 
     bool Url::has_schema () const
@@ -134,5 +133,27 @@ namespace http {
 
 		return pathAndQuery;
 	}
+
+    std::map<std::string, std::string> Url::query_values() const
+    {
+        std::map<std::string, std::string> values;
+        std::string param = query();
+        size_t pos = 0;
+        while(param.size() > pos) {
+            size_t aidx = param.find('&', pos);
+            if(aidx == 0) {
+                pos++;
+                continue;
+            }
+            std::string vstr = param.substr(pos, aidx);
+            pos += vstr.size() + 1;
+
+            size_t eidx = vstr.find('=', 0);
+            if(eidx != std::string::npos && eidx != 0) {
+                values[vstr.substr(0, eidx)] = vstr.substr(eidx+1);
+            }
+        }
+        return values;
+    }
 
 }

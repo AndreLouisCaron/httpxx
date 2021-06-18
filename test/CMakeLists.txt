@@ -15,6 +15,7 @@ add_test_program(http-extract-request-body)
 add_test_program(http-extract-response-body)
 add_test_program(pipelined-headers)
 add_test_program(userbufferedmessage)
+add_test_program(parser-url)
 
 # Test cases.
 set(test-data ${CMAKE_CURRENT_SOURCE_DIR}/data)
